@@ -19,7 +19,7 @@ export class DishProvider {
   constructor(public http: Http,
     private processHTTPMsgService: ProcessHttpmsgProvider) { }
 
-  getDishs(): Observable<Dish[]> {
+  getDishes(): Observable<Dish[]> {
     return this.http.get(baseURL + 'dishes')
       .map(res => { return this.processHTTPMsgService.extractData(res); })
       .catch(error => { return this.processHTTPMsgService.handleError(error); });
