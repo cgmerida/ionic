@@ -25,7 +25,7 @@ export class HomePage implements OnInit {
     private promotionService: PromotionProvider,
     private leaderService: LeaderProvider,
 
-    @Inject('BaseURL') private BaseURL) {
+    @Inject('BaseURL') public BaseURL) {
 
   }
 

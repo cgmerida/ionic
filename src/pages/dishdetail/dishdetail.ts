@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Dish } from "../../shared/dish";
-import { Comment } from "../../shared/comment";
 
 /**
  * Generated class for the DishdetailPage page.
@@ -24,7 +23,7 @@ export class DishdetailPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    @Inject('BaseURL') private BaseURL) {
+    @Inject('BaseURL') public BaseURL) {
       this.dish = navParams.get('dish');
       this.numcomments = this.dish.comments.length;
 
