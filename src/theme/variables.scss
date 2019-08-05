@@ -90,3 +90,8 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+button:disabled {
+  cursor: not-allowed!important;
+  pointer-events: all!important;
+}
