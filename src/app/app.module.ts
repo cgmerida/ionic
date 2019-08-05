@@ -21,6 +21,7 @@ import { ProcessHttpmsgProvider } from '../providers/process-httpmsg/process-htt
 import { FavoriteProvider } from '../providers/favorite/favorite';
 
 import { baseURL } from "../shared/baseurl";
+import { ReservationPage } from '../pages/reservation/reservation';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { baseURL } from "../shared/baseurl";
     ContactPage,
     DishdetailPage,
     FavoritesPage,
+    ReservationPage,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +48,7 @@ import { baseURL } from "../shared/baseurl";
     ContactPage,
     DishdetailPage,
     FavoritesPage,
+    ReservationPage,
   ],
   providers: [
     StatusBar,
