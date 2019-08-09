@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams, ItemSliding } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ItemSliding, ToastController, LoadingController, AlertController } from 'ionic-angular';
 import { Dish } from '../../shared/dish';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
 
@@ -22,6 +22,9 @@ export class FavoritesPage implements OnInit {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private favoriteService: FavoriteProvider,
+    private toastCtl: ToastController,
+    private loadingCtl: LoadingController,
+    private alertCtl: AlertController,
     @Inject('BaseURL') public BaseURL) {
   }
 
@@ -38,12 +41,52 @@ export class FavoritesPage implements OnInit {
   }
 
   deleteFavorite(item: ItemSliding, id: number) {
-    console.log('delete', id);
-    this.favoriteService.deleteFavorite(id)
-      .subscribe(
-        favorites => this.favorites = favorites,
-        errmes => this.errMess = errmes
-      );
+    let alert = this.alertCtl.create({
+      title: 'Confirm Title',
+      message: 'Do you want to delete Dish ' + id,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Delete Cancelled');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            let loading = this.loadingCtl.create({
+              content: 'Deleting...'
+        
+            });
+        
+            let toast = this.toastCtl.create({
+              message: `Dish ${id} deleted successfully`,
+              position: 'middle',
+              duration: 3000
+            });
+        
+            loading.present();
+        
+            console.log('delete', id);
+            this.favoriteService.deleteFavorite(id)
+              .subscribe(
+                favorites => {
+                  this.favorites = favorites;
+                  loading.dismiss();
+                  toast.present();
+                },
+                errmes => {
+                  this.errMess = errmes;
+                  loading.dismiss();
+                }
+              );
+          }
+        }
+      ]
+    });
+
+    alert.present();
 
     item.close();
   }
