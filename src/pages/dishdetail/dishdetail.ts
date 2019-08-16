@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ActionSheetController } from 'ionic-angular';
 import { Dish } from "../../shared/dish";
 import { FavoriteProvider } from '../../providers/favorite/favorite';
 
@@ -22,27 +22,28 @@ export class DishdetailPage {
   errMess: string;
   avgstars: string;
   numcomments: number;
-  favorite : boolean = false;
+  favorite: boolean = false;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     @Inject('BaseURL') public BaseURL,
     private favoriteService: FavoriteProvider,
-    private toastCtl: ToastController) {
-      this.dish = navParams.get('dish');
-      this.favorite = this.favoriteService.isFavorite(this.dish.id);
-      this.numcomments = this.dish.comments.length;
+    private toastCtl: ToastController,
+    private actionCtl: ActionSheetController) {
+    this.dish = navParams.get('dish');
+    this.favorite = this.favoriteService.isFavorite(this.dish.id);
+    this.numcomments = this.dish.comments.length;
 
-      let total = 0;
-      this.dish.comments.forEach(comment => total += comment.rating);
-      this.avgstars = (total / this.numcomments).toFixed(2);
+    let total = 0;
+    this.dish.comments.forEach(comment => total += comment.rating);
+    this.avgstars = (total / this.numcomments).toFixed(2);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DishdetailPage');
   }
 
-  addToFavorites(){
+  addToFavorites() {
     console.log('Adding to favorites', this.dish.id);
     this.favorite = this.favoriteService.addFavorite(this.dish.id);
     this.toastCtl.create({
@@ -50,6 +51,33 @@ export class DishdetailPage {
       position: 'middle',
       duration: 3000
     }).present();
+  }
+
+  openAction() {
+    const actionSheet = this.actionCtl.create({
+      title: 'Select Actions',
+      buttons: [
+        {
+          text: 'Add to Favorites',
+          handler: () => {
+            this.addToFavorites();
+            console.log('Added to Favorites');
+          }
+        }, {
+          text: 'Add Comment',
+          handler: () => {
+            console.log('Comment Added');
+          }
+        }, {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
 }
