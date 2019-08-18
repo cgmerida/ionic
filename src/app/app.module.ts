@@ -10,6 +10,8 @@ import { MenuPage } from '../pages/menu/menu';
 import { ContactPage } from '../pages/contact/contact';
 import { DishdetailPage } from "../pages/dishdetail/dishdetail";
 import { FavoritesPage } from '../pages/favorites/favorites';
+import { ReservationPage } from '../pages/reservation/reservation';
+import { CommentPage } from '../pages/comment/comment';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -21,7 +23,6 @@ import { ProcessHttpmsgProvider } from '../providers/process-httpmsg/process-htt
 import { FavoriteProvider } from '../providers/favorite/favorite';
 
 import { baseURL } from "../shared/baseurl";
-import { ReservationPage } from '../pages/reservation/reservation';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ReservationPage } from '../pages/reservation/reservation';
     DishdetailPage,
     FavoritesPage,
     ReservationPage,
+    CommentPage,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +51,7 @@ import { ReservationPage } from '../pages/reservation/reservation';
     DishdetailPage,
     FavoritesPage,
     ReservationPage,
+    CommentPage,
   ],
   providers: [
     StatusBar,

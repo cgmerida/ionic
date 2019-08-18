@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ActionSheetController, ModalController } from 'ionic-angular';
 import { Dish } from "../../shared/dish";
 import { FavoriteProvider } from '../../providers/favorite/favorite';
+import { CommentPage } from '../comment/comment';
+import { Comment } from '../../shared/comment';
 
 
 /**
@@ -24,12 +26,12 @@ export class DishdetailPage {
   numcomments: number;
   favorite: boolean = false;
 
-
   constructor(public navCtrl: NavController, public navParams: NavParams,
     @Inject('BaseURL') public BaseURL,
     private favoriteService: FavoriteProvider,
     private toastCtl: ToastController,
-    private actionCtl: ActionSheetController) {
+    private actionCtl: ActionSheetController,
+    private modalCtl: ModalController) {
     this.dish = navParams.get('dish');
     this.favorite = this.favoriteService.isFavorite(this.dish.id);
     this.numcomments = this.dish.comments.length;
@@ -53,6 +55,16 @@ export class DishdetailPage {
     }).present();
   }
 
+  addComment() {
+    let commentModal = this.modalCtl.create(CommentPage);
+    commentModal.onDidDismiss(data => {
+      data.date = new Date().toISOString();
+      let newComment: Comment = data;
+      this.dish.comments.push(newComment);
+    });
+    commentModal.present();
+  }
+
   openAction() {
     const actionSheet = this.actionCtl.create({
       title: 'Select Actions',
@@ -66,6 +78,7 @@ export class DishdetailPage {
         }, {
           text: 'Add Comment',
           handler: () => {
+            this.addComment();
             console.log('Comment Added');
           }
         }, {
