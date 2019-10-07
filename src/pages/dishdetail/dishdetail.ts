@@ -60,6 +60,10 @@ export class DishdetailPage {
     commentModal.onDidDismiss(data => {
       data.date = new Date().toISOString();
       let newComment: Comment = data;
+      
+      // if (comment) {
+      //   this.dish.comments.push(comment);
+      // }
       this.dish.comments.push(newComment);
     });
     commentModal.present();

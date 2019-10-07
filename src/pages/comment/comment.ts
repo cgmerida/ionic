@@ -17,6 +17,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class CommentPage {
 
   commentForm: FormGroup;
+  // comment: Comment;  
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private formBuilder: FormBuilder,
@@ -38,6 +39,12 @@ export class CommentPage {
 
   onSubmit() {
     console.log(this.commentForm.value);
+
+    // this.comment = this.commentForm.value;
+    // this.comment.date = new Date().toISOString();
+    // console.log(this.comment);
+    // this.viewCtrl.dismiss(this.comment);
+    // this.comment = null;
     this.viewCtl.dismiss(this.commentForm.value);
   }
 
