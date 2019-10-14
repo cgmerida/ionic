@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { DishProvider } from '../dish/dish';
 import { Observable } from 'rxjs/Observable';
 import { Dish } from '../../shared/dish';
+import { Storage } from '@ionic/storage';
 
 
 /*
@@ -17,14 +18,26 @@ export class FavoriteProvider {
   favorites: Array<any>;
 
   constructor(public http: Http,
-    private dishService: DishProvider) {
-    console.log('Hello FavoriteProvider Provider');
+    private dishService: DishProvider,
+    private storage: Storage) {
+      
     this.favorites = [];
+
+    storage.get('favorites').then(favorites => {
+      if (favorites) {
+        this.favorites = favorites;
+      } else {
+      }
+    });
+    console.log('Hello FavoriteProvider Provider');
+
   }
 
   addFavorite(id: number): boolean {
-    if (!this.isFavorite(id))
+    if (!this.isFavorite(id)) {
       this.favorites.push(id);
+      this.storage.set('favorites', this.favorites);
+    }
     return true;
   }
 
@@ -41,6 +54,7 @@ export class FavoriteProvider {
     let index = this.favorites.indexOf(id);
     if (index >= 0) {
       this.favorites.splice(index, 1);
+      this.storage.set('favorites', this.favorites);
       return this.getFavorites();
     } else {
       console.log("Deleting non-existant favorite ", id);

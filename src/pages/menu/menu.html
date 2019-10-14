@@ -17,7 +17,7 @@
   <div *ngIf="dishes">
     <ion-grid>
       <ion-row>
-        <ion-col col-lg-4 *ngFor="let dish of dishes">
+        <ion-col col-12 col-lg-4 *ngFor="let dish of dishes">
           <ion-card (pan)="addToFavorites(dish)" (click)="dishSelected($event, dish)">
             <img src="{{ BaseURL + dish.image }}" alt="{{ dish.name }}" />
             <div class="card-title">

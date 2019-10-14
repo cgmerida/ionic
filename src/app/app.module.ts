@@ -58,6 +58,7 @@ import { baseURL } from "../shared/baseurl";
     LoginPage,
   ],
   providers: [
+    FavoriteProvider,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
@@ -66,7 +67,6 @@ import { baseURL } from "../shared/baseurl";
     PromotionProvider,
     ProcessHttpmsgProvider,
     { provide: 'BaseURL', useValue: baseURL },
-    FavoriteProvider
   ]
 })
 export class AppModule {}
