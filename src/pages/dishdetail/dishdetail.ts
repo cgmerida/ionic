@@ -103,7 +103,15 @@ export class DishdetailPage {
               .then(() => console.log('Posted successfully to Twitter'))
               .catch(() => console.log('Failed to post to Twitter'));
           }
-        }
+        },
+        // {
+        //   text: 'Share via Email',
+        //   handler: () => {
+        //     this.socialSharing.shareViaEmail('Body', 'Subject', ['recipient@example.org'])
+        //       .then(() => console.log('Posted successfully to Twitter'))
+        //       .catch(() => console.log('Failed to post to Twitter'));
+        //   }
+        // }
 
         , {
           text: 'Cancel',
