@@ -18,6 +18,8 @@ import { LoginPage } from '../pages/login/login';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocalNotifications } from "@ionic-native/local-notifications";
+import { EmailComposer } from '@ionic-native/email-composer';
+
 
 
 import { DishProvider } from '../providers/dish/dish';
@@ -64,13 +66,14 @@ import { baseURL } from "../shared/baseurl";
     FavoriteProvider,
     StatusBar,
     SplashScreen,
-    LocalNotifications,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DishProvider,
     LeaderProvider,
     PromotionProvider,
     ProcessHttpmsgProvider,
     { provide: 'BaseURL', useValue: baseURL },
+    LocalNotifications,
+    EmailComposer,
   ]
 })
 export class AppModule {}
