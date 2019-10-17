@@ -4,7 +4,7 @@ import { DishProvider } from '../dish/dish';
 import { Observable } from 'rxjs/Observable';
 import { Dish } from '../../shared/dish';
 import { Storage } from '@ionic/storage';
-
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 /*
   Generated class for the FavoriteProvider provider.
@@ -19,7 +19,8 @@ export class FavoriteProvider {
 
   constructor(public http: Http,
     private dishService: DishProvider,
-    private storage: Storage) {
+    private storage: Storage,
+    private localNotifications: LocalNotifications) {
       
     this.favorites = [];
 
@@ -37,6 +38,11 @@ export class FavoriteProvider {
     if (!this.isFavorite(id)) {
       this.favorites.push(id);
       this.storage.set('favorites', this.favorites);
+      
+      this.localNotifications.schedule({
+        id: id,
+        text: 'Dish ' + id + ' added as a favorite successfully'
+      });
     }
     return true;
   }
